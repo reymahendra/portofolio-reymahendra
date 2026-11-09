@@ -39,7 +39,7 @@ const s = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 14,
     paddingHorizontal: 32,
-    marginBottom: 14,
+    marginBottom: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -59,7 +59,7 @@ const s = StyleSheet.create({
   main:    { width: '67%', paddingLeft: 14, borderLeftWidth: 1, borderLeftColor: RULE },
 
   /* ── Section headings ────────────────────────────────── */
-  sectionWrap: { marginBottom: 11 },
+  sectionWrap: { marginBottom: 9 },
   heading: {
     fontSize: 9.5,
     fontFamily: 'Helvetica-Bold',
@@ -71,7 +71,7 @@ const s = StyleSheet.create({
   headingRule: { height: 1.5, width: 22, backgroundColor: ACCENT, marginBottom: 6 },
 
   /* ── Shared entry blocks ─────────────────────────────── */
-  block: { marginBottom: 7 },
+  block: { marginBottom: 6 },
   entryRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' },
   entryTitle: { fontSize: 9.5, fontFamily: 'Helvetica-Bold', color: HEADING },
   entryRole:  { fontSize: 8.8, color: ACCENT, marginTop: 1 },

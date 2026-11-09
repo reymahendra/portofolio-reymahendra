@@ -77,7 +77,7 @@ export default async function GitHubActivity() {
     <section className="py-24 px-4 bg-black/[0.02] dark:bg-white/[0.02]">
       <div className="max-w-5xl mx-auto">
         <div className="mb-12">
-          <SectionHeading number="06" title="GitHub Activity" />
+          <SectionHeading number="07" title="GitHub Activity" />
         </div>
 
         {/* Live stat pills */}

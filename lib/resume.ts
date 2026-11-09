@@ -141,7 +141,12 @@ export const resumeData = {
             pdfItems: "Git, GitHub, Postman, Linux, Windows",
         },
     ],
-    certifications: [],
+    // TEMPLATE — ganti dengan sertifikatmu. Format: "Nama Sertifikat — Penerbit, Tahun".
+    // Kosongkan array ini kalau section Certifications tidak ingin muncul di PDF.
+    certifications: [
+        "Nama Sertifikat Kamu — Nama Penerbit, 2024",
+        "Nama Sertifikat Kamu — Nama Penerbit, 2023",
+    ],
 };
 
 export type ResumeData = typeof resumeData

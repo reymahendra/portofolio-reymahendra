@@ -59,7 +59,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-4"
         >
-          <SectionHeading number="07" title="Get In Touch" />
+          <SectionHeading number="08" title="Get In Touch" />
         </motion.div>
 
         <motion.p

@@ -353,6 +353,44 @@ export default function HeroOrbit() {
 
       {/* Rotating badge — moved to Hero so it tracks the headline */}
 
+      {/* Left note — playlist */}
+      <motion.div
+        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 26, scale: 0.94, rotate: -7 }}
+        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1, rotate: -4 }}
+        transition={
+          reduceMotion
+            ? { duration: 0.3 }
+            : { type: 'spring', stiffness: 220, damping: 17, delay: 0.5 }
+        }
+        className="pointer-events-auto absolute left-0 -top-[90px] z-[50] hidden w-[300px] min-[1100px]:block"
+      >
+        <motion.div
+          animate={reduceMotion ? undefined : { y: [0, -5, 0] }}
+          transition={reduceMotion ? undefined : { duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 1.4 }}
+          className="rounded-[24px] border border-[#e6e1d8] bg-white/90 shadow-[0_16px_36px_-14px_rgba(40,35,25,0.18)] backdrop-blur-[14px] backdrop-saturate-[1.4] dark:border-white/10 dark:bg-white/[0.06] dark:shadow-[0_16px_36px_-14px_rgba(0,0,0,0.75)]"
+        >
+          <div data-orbit-interactive className="h-[150px] overflow-hidden rounded-[20px]">
+            <iframe
+              src="https://open.spotify.com/embed/playlist/6i2CO1JHvixFjHNaBhxPGy?utm_source=generator&theme=0"
+              title="Spotify playlist: My Playlist"
+              width="100%"
+              height="190"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+              className="block rounded-[20px]"
+            />
+          </div>
+          <a
+            href="https://open.spotify.com/playlist/6i2CO1JHvixFjHNaBhxPGy?si=1cMdM5y9Q-m0vgT3xZPo9Q"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-b-[24px] px-4 py-3 text-center text-[11px] font-medium text-[#1ed760] outline-none transition-colors hover:bg-black/[0.03] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#1ed760] dark:hover:bg-white/[0.04]"
+          >
+            Open full playlist in Spotify
+          </a>
+        </motion.div>
+      </motion.div>
+
       {/* Right note — the terminal takes the "Ideas, anytime, anywhere" slot */}
       <motion.div
         initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 26, scale: 0.94, rotate: 9 }}
