@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://reymahendra.vercel.app/sitemap.xml

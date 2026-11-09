@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light — warm paper palette from the reference */
+  --bg-primary: #f7f5f1;
+  --bg-card: #ffffff;
+  --ink: #111110;
+  --mute: #6b6862;
+  --line: #e3ded5;
+  --scrollbar-track: #efece6;
+}
+
+.dark {
+  --bg-primary: #050816;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --ink: #f3f1ec;
+  --mute: #94a3b8;
+  --line: rgba(255, 255, 255, 0.1);
+  --scrollbar-track: #050816;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: clip; /* clip (not hidden) so position:fixed children still work */
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--ink);
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+
+::selection { background: #6366f1; color: white; }
+
+@keyframes mesh1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(80px, -60px) scale(1.1); }
+  66%       { transform: translate(-40px, 80px) scale(0.95); }
+}
+@keyframes mesh2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-70px, 50px) scale(1.05); }
+  66%       { transform: translate(60px, -70px) scale(0.9); }
+}
+@keyframes mesh3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50%       { transform: translate(-50%, -50%) scale(1.25); }
+}
+
+.animate-mesh1 { animation: mesh1 22s ease-in-out infinite; }
+.animate-mesh2 { animation: mesh2 28s ease-in-out infinite; }
+.animate-mesh3 { animation: mesh3 18s ease-in-out infinite; }
