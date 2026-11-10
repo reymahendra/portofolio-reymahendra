@@ -1,6 +1,7 @@
 import SectionHeading from './SectionHeading'
 import RepoCards from './RepoCards'
 import GitHubStatPills from './GitHubStatPills'
+import GitHubNativeStats from './GitHubNativeStats'
 import { FaGithub } from 'react-icons/fa'
 
 interface Repo {
@@ -62,13 +63,25 @@ async function fetchProfile(): Promise<GitHubProfile | null> {
   }
 }
 
-const GRS = 'https://github-readme-stats.vercel.app/api'
-const GRS_LIGHT = 'theme=swift&hide_border=false&include_all_commits=true&count_private=true&show_icons=true&cache_seconds=1800'
-const GRS_DARK  = 'theme=transparent&hide_border=true&title_color=818cf8&icon_color=818cf8&text_color=94a3b8&bg_color=00000000&include_all_commits=true&count_private=true&show_icons=true&cache_seconds=1800'
+/** Language mix of the pinned repos, by repo count (top N). */
+function topLanguages(repos: Repo[], limit = 6) {
+  const counts = new Map<string, number>()
+  for (const r of repos) {
+    if (r.language) counts.set(r.language, (counts.get(r.language) ?? 0) + 1)
+  }
+  const total = Array.from(counts.values()).reduce((a, b) => a + b, 0)
+  if (total === 0) return []
+  return Array.from(counts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit)
+    .map(([name, n]) => ({ name, percent: Math.round((n / total) * 100) }))
+}
 
 export default async function GitHubActivity() {
   const [repos, profile] = await Promise.all([fetchRepos(), fetchProfile()])
-  if (repos.length === 0) return null
+  // Keep the section visible as long as one source answered — a rate-limited
+  // repo fetch alone shouldn't make the whole section disappear.
+  if (repos.length === 0 && !profile) return null
 
   const totalStars = repos.reduce((acc, r) => acc + r.stargazers_count, 0)
   const totalForks = repos.reduce((acc, r) => acc + r.forks_count, 0)
@@ -88,23 +101,14 @@ export default async function GitHubActivity() {
           totalForks={totalForks}
         />
 
-        {/* GitHub Stats + Top Languages (self-hosted instance) */}
-        <div className="grid md:grid-cols-2 gap-4 mb-4">
-          {/* Stats card */}
-          <div className="rounded-xl border border-black/10 dark:border-white/10 overflow-hidden bg-white dark:bg-transparent flex items-center justify-center p-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${GRS}?username=${GITHUB_USERNAME}&${GRS_LIGHT}`} alt="Rey's GitHub stats" className="w-full block dark:hidden" loading="lazy" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${GRS}?username=${GITHUB_USERNAME}&${GRS_DARK}`}  alt="Rey's GitHub stats" className="w-full hidden dark:block" loading="lazy" />
-          </div>
-          {/* Top Languages card */}
-          <div className="rounded-xl border border-black/10 dark:border-white/10 overflow-hidden bg-white dark:bg-transparent flex items-center justify-center p-2">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${GRS}/top-langs/?username=${GITHUB_USERNAME}&theme=swift&hide_border=false&layout=compact&langs_count=10&cache_seconds=1800`}            alt="Rey's top languages" className="w-full block dark:hidden" loading="lazy" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`${GRS}/top-langs/?username=${GITHUB_USERNAME}&theme=transparent&hide_border=true&title_color=818cf8&text_color=94a3b8&bg_color=00000000&layout=compact&langs_count=10&cache_seconds=1800`} alt="Rey's top languages" className="w-full hidden dark:block" loading="lazy" />
-          </div>
-        </div>
+        {/* GitHub Stats + Top Languages — rendered from the GitHub API, no external image service */}
+        <GitHubNativeStats
+          totalStars={totalStars}
+          totalForks={totalForks}
+          publicRepos={profile?.public_repos ?? repos.length}
+          followers={profile?.followers ?? 0}
+          languages={topLanguages(repos)}
+        />
 
         {/* Streak Stats */}
         <div className="rounded-xl border border-black/10 dark:border-white/10 overflow-hidden bg-white dark:bg-transparent flex items-center justify-center p-2 mb-10">

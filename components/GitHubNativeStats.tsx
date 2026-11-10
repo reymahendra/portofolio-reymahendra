@@ -18,6 +18,7 @@ const LANG_COLORS: Record<string, string> = {
   Go:          '#00ADD8',
   Rust:        '#dea584',
   Java:        '#b07219',
+  PHP:         '#4F5D95',
 }
 
 export interface LangStat { name: string; percent: number }
